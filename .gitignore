@@ -1,0 +1,77 @@
+# Build directories
+build/
+cmake-build-debug/
+cmake-build-release/
+out/
+dist/
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+*.user
+*.pro.user
+
+# Compiled objects
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+*.dll
+*.exe
+*.out
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Test and demo outputs
+*.mp4
+*.h264
+*.idx
+*.lock
+*.log
+test_*.exe
+test_*.cpp
+*.exe
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# OS specific
+Thumbs.db
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Documentation build artifacts
+docs/_build/
+docs/.doctrees/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Node (if any)
+node_modules/
+npm-debug.log
+
+# Misc
+*.swp
+*.swo
+*~
+.#*
