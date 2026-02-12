@@ -24,7 +24,7 @@ brew install cmake
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/mp4_crash_safe_recorder.git
+git clone https://github.com/qhfnh/mp4CrashRecorder.git
 cd mp4_crash_safe_recorder
 ```
 
@@ -95,8 +95,8 @@ mingw32-make test
 After building, verify the installation:
 
 ```bash
-# Run basic recording example
-./examples/basic_recording
+# Run primary recovery demo
+./examples/mp4_recover_demo
 
 # Run recovery demo
 ./examples/recovery_demo

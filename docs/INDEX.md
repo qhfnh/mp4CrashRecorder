@@ -151,9 +151,9 @@ struct RecorderConfig {
 
 ## Examples
 
-### Basic Recording
+### Primary Demo
 ```bash
-./basic_recording
+./mp4_recover_demo
 ```
 
 ### Recovery Demo
@@ -178,6 +178,7 @@ struct RecorderConfig {
 
 | File | Description |
 |------|-------------|
+| mp4_recover_demo.cpp | Primary end-to-end crash-safe recording and recovery demo |
 | basic_recording.cpp | Basic recording example |
 | recovery_demo.cpp | Recovery demonstration |
 | advanced_recording.cpp | Advanced recording example |

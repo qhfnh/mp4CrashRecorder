@@ -17,7 +17,7 @@ A production-grade C++ library for recording MP4 videos with automatic crash rec
 
 ```bash
 # Clone repository
-git clone https://github.com/yourusername/mp4_crash_safe_recorder.git
+git clone https://github.com/qhfnh/mp4CrashRecorder.git
 cd mp4_crash_safe_recorder
 
 # Build
@@ -29,13 +29,37 @@ make
 make test
 
 # Run examples
-./examples/basic_recording
+./examples/mp4_recover_demo
 ./examples/recovery_demo
 ```
 
 See [INSTALL.md](INSTALL.md) for detailed installation instructions.
 
 ## Basic Usage
+
+## Primary Demo
+
+The main end-to-end demonstration is `mp4_recover_demo`.
+
+Note: this demo was renamed from `examples/realtime_encoding_demo.cpp` to
+`examples/mp4_recover_demo.cpp`.
+
+Before running it, make sure FFmpeg command-line tools are installed and available in `PATH`.
+
+```bash
+ffmpeg -version
+ffprobe -version
+ffplay -version
+```
+
+```bash
+cd build
+cmake --build . --config Release --target mp4_recover_demo
+./Release/mp4_recover_demo.exe
+```
+
+This demo generates H.264/AAC streams, records crash-safe MP4 output, validates via `ffprobe`,
+and attempts playback with `ffplay`.
 
 ```cpp
 #include "mp4_recorder.h"
@@ -205,7 +229,7 @@ make test
 
 ### Run Examples
 ```bash
-./examples/basic_recording
+./examples/mp4_recover_demo
 ./examples/recovery_demo
 ```
 

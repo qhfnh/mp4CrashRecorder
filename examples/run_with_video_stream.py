@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-MP4 Crash-Safe Recorder - Realtime Encoding Demo with Video Stream
+MP4 Crash-Safe Recorder - MP4 Recover Demo with Video Stream
 
-This script demonstrates how to use the realtime_encoding_demo with real video input.
+This script demonstrates how to use the mp4_recover_demo with real video input.
 It creates a test video and runs the demo with it.
 
 Usage:
@@ -52,8 +52,8 @@ def create_test_video(output_file, duration=3, color="red"):
         return False
 
 def run_demo(scenario, input_video=None):
-    """Run the realtime_encoding_demo"""
-    demo_exe = "build/Debug/realtime_encoding_demo.exe"
+    """Run the mp4_recover_demo"""
+    demo_exe = "build/Debug/mp4_recover_demo.exe"
     
     if not os.path.exists(demo_exe):
         print(f"✗ Demo executable not found: {demo_exe}")
@@ -76,7 +76,7 @@ def run_demo(scenario, input_video=None):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="MP4 Crash-Safe Recorder - Realtime Encoding Demo with Video Stream"
+        description="MP4 Crash-Safe Recorder - MP4 Recover Demo with Video Stream"
     )
     parser.add_argument(
         "scenario",

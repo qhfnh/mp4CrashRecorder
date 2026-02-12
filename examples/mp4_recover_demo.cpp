@@ -1,5 +1,5 @@
 /*
- * MP4 Crash-Safe Recorder - Realtime H.264 Stream Demo
+ * MP4 Crash-Safe Recorder - MP4 Recover Demo
  * 
  * Demonstrates:
  * - Generating H.264 raw stream once using ffmpeg
@@ -485,7 +485,7 @@ bool generateAacAdtsStream(const std::string& output_stream, uint32_t sample_rat
 bool demoRealtimeH264ToMP4(const std::string& h264_stream_file, const std::string& audio_stream_file,
                            const std::string& output_mp4, uint32_t width, uint32_t height,
                            uint32_t fps, uint32_t duration_seconds) {
-    MCSR_LOG(INFO) << "\n=== Demo: Realtime H.264 Stream to MP4 (Using Mp4Recorder) ===";
+    MCSR_LOG(INFO) << "\n=== Demo: MP4 Recover Demo (Using Mp4Recorder) ===";
     MCSR_LOG(INFO) << "Input H.264 stream: " << h264_stream_file;
     MCSR_LOG(INFO) << "Input audio stream: " << audio_stream_file;
     MCSR_LOG(INFO) << "Output MP4: " << output_mp4;
@@ -770,7 +770,7 @@ bool demoRealtimeH264ToMP4(const std::string& h264_stream_file, const std::strin
 int main(int argc, char* argv[]) {
     SetLogLevel(LogLevel::DEBUG);
     
-    std::string header = "=== MP4 Crash-Safe Recorder - Realtime H.264 Stream Demo ===";
+    std::string header = "=== MP4 Crash-Safe Recorder - MP4 Recover Demo ===";
     MCSR_LOG(INFO) << header;
 
     // Parameters
@@ -783,7 +783,7 @@ int main(int argc, char* argv[]) {
     
     std::string h264_stream_file = "test_stream.h264";
     std::string audio_stream_file = "test_audio.aac";
-    std::string output_mp4 = "realtime_output.mp4";
+    std::string output_mp4 = "mp4_recover_output.mp4";
 
     // Check for incomplete recording from previous crash
     if (Mp4Recorder::hasIncompleteRecording(output_mp4)) {

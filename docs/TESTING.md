@@ -103,16 +103,25 @@ Test Results: 6 passed, 0 failed
 
 ## Manual Test Scenarios
 
-### Scenario 1: Normal Recording and Recovery
+### Scenario 1: Primary Demo (Recording + Validation + Playback)
+
+`mp4_recover_demo` is the renamed version of `realtime_encoding_demo.cpp` and depends on
+FFmpeg command-line tools.
 
 ```bash
-./Release/recovery_demo.exe
+ffmpeg -version
+ffprobe -version
+ffplay -version
+```
+
+```bash
+./Release/mp4_recover_demo.exe
 ```
 
 Tests:
-- Check for existing incomplete recordings
-- Simulate crash and recovery
-- Multiple crash scenarios
+- Generate H.264 and AAC test streams with ffmpeg
+- Record crash-safe MP4 output
+- Validate output with ffprobe and playback with ffplay
 
 ### Scenario 2: Basic Recording
 

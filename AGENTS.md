@@ -63,7 +63,7 @@ make test-perf
 ## Example Commands
 
 ```bash
-./Release/basic_recording.exe
+./Release/mp4_recover_demo.exe
 ./Release/recovery_demo.exe
 ./Release/advanced_recording.exe
 ./Release/multithreaded_recording.exe

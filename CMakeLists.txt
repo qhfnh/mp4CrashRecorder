@@ -57,8 +57,8 @@ target_link_libraries(crash_simulation mp4_recorder)
 add_executable(mp4_playback_verify examples/mp4_playback_verify.cpp)
 target_link_libraries(mp4_playback_verify mp4_recorder)
 
-add_executable(realtime_encoding_demo examples/realtime_encoding_demo.cpp)
-target_link_libraries(realtime_encoding_demo mp4_recorder)
+add_executable(mp4_recover_demo examples/mp4_recover_demo.cpp)
+target_link_libraries(mp4_recover_demo mp4_recorder)
 
 add_executable(moov_builder_test examples/moov_builder_test.cpp)
 target_link_libraries(moov_builder_test mp4_recorder)
