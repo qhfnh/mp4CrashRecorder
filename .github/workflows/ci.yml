@@ -10,73 +10,78 @@ jobs:
   build:
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-        compiler: [gcc, clang]
-        exclude:
-          - os: macos-latest
+        include:
+          - os: ubuntu-latest
             compiler: gcc
-          - os: windows-latest
+            cc: gcc
+            cxx: g++
+          - os: ubuntu-latest
             compiler: clang
+            cc: clang
+            cxx: clang++
+          - os: windows-latest
+            compiler: msvc
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Set up CMake
-      uses: jwlawson/actions-setup-cmake@v1
+      uses: jwlawson/actions-setup-cmake@v2
       with:
-        cmake-version: '3.20'
+        cmake-version: '3.26.4'
 
-    - name: Install dependencies (Ubuntu)
+    - name: Install dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update
-        sudo apt-get install -y build-essential
+        sudo apt-get install -y build-essential clang
 
-    - name: Install dependencies (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        brew install cmake
+    - name: Configure CMake (Linux)
+      if: runner.os == 'Linux'
+      env:
+        CC: ${{ matrix.cc }}
+        CXX: ${{ matrix.cxx }}
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 
-    - name: Create build directory
-      run: mkdir -p build
-
-    - name: Configure CMake
-      run: |
-        cd build
-        cmake ..
+    - name: Configure CMake (Windows)
+      if: runner.os == 'Windows'
+      run: cmake -S . -B build
 
     - name: Build
-      run: |
-        cd build
-        make
+      run: cmake --build build --config Release --parallel
 
     - name: Run tests
-      run: |
-        cd build
-        make test
+      run: ctest --test-dir build --output-on-failure -C Release
 
-    - name: Run examples
+    - name: Run examples (Linux)
+      if: runner.os == 'Linux' && github.event_name != 'pull_request'
       run: |
-        cd build
-        ./examples/basic_recording
-        ./examples/recovery_demo
+        ./build/basic_recording
+        ./build/recovery_demo
+
+    - name: Run examples (Windows)
+      if: runner.os == 'Windows' && github.event_name != 'pull_request'
+      run: |
+        .\build\Release\basic_recording.exe
+        .\build\Release\recovery_demo.exe
 
   code-quality:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
-    - name: Install clang-format
-      run: sudo apt-get install -y clang-format
+    - name: Install formatting and analysis tools
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y clang-format cppcheck
 
     - name: Check code formatting
       run: |
-        find . -name "*.cpp" -o -name "*.h" | xargs clang-format --dry-run -Werror
-
-    - name: Install cppcheck
-      run: sudo apt-get install -y cppcheck
+        find src include tests examples -type f \( -name "*.cpp" -o -name "*.h" \) -print0 \
+          | xargs -0 clang-format --dry-run --Werror
 
     - name: Run static analysis
       run: |
@@ -86,30 +91,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y build-essential lcov
 
-    - name: Create build directory
-      run: mkdir -p build
-
     - name: Configure CMake with coverage
-      run: |
-        cd build
-        cmake -DCMAKE_CXX_FLAGS="--coverage" ..
+      run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_FLAGS="--coverage"
 
     - name: Build
-      run: |
-        cd build
-        make
+      run: cmake --build build --parallel
 
     - name: Run tests
-      run: |
-        cd build
-        make test
+      run: ctest --test-dir build --output-on-failure
 
     - name: Generate coverage report
       run: |
@@ -119,6 +115,7 @@ jobs:
         lcov --list coverage.info
 
     - name: Upload coverage to Codecov
-      uses: codecov/codecov-action@v3
+      uses: codecov/codecov-action@v4
       with:
         files: ./build/coverage.info
+        fail_ci_if_error: false

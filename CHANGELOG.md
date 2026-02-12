@@ -55,7 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### CI/CD
 - GitHub Actions workflow
-- Multi-platform testing (Ubuntu, macOS, Windows)
+- Multi-platform testing (Ubuntu and Windows)
+- Linux compilers: GCC and Clang; Windows compiler: MSVC
 - Code quality checks (clang-format, cppcheck)
 - Code coverage reporting
 

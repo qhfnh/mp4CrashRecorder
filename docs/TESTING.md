@@ -330,11 +330,31 @@ Using hex editor, check MP4 header:
 ### GitHub Actions
 
 ```yaml
-- name: Run Tests
-  run: |
-    cd build
-    cmake --build . --config Release
-    ctest --output-on-failure
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            compiler: gcc
+          - os: ubuntu-latest
+            compiler: clang
+          - os: windows-latest
+            compiler: msvc
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S . -B build
+      - run: cmake --build build --config Release --parallel
+      - run: ctest --test-dir build --output-on-failure -C Release
 ```
 
 ### GitLab CI
